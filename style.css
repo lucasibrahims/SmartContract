@@ -63,6 +63,7 @@ input {
   background: #af1fa8;
   background: linear-gradient(to top, #af1fa8, #ff00ea);
   margin: 20px;
+  cursor:pointer;
 
 }
 #conectar_btn:hover {
@@ -70,6 +71,7 @@ input {
   background: #8d678b;
   background: linear-gradient(to top, #8d678b, #ffbffc);
   margin: 20px;
+  cursor:pointer;
 }
 .not_payable {
     font-family: helvetica;
@@ -84,12 +86,14 @@ input {
     background: #00398f;
     background: linear-gradient(to top, #00398f, #00bfd8);
     margin: 20px;
+    cursor:pointer;
 }
 .not_payable:hover {
   color: #FFFFFF !important;
   background: #565faf;
   background: linear-gradient(to top, #565faf, #88d9f1);
   margin: 20px;
+  cursor:pointer;
 }
 
 .payable {
@@ -105,12 +109,14 @@ input {
     background: #ff8800;
     background: linear-gradient(to top, #ff8800, #ffdd7f);
     margin: 20px;
+    cursor:pointer;
 }
 
 .payable:hover{
     color: #FFFFFF !important;
     background: #ffc086;
-    background: linear-gradient(to top, #ffc086, #eff188)
+    background: linear-gradient(to top, #ffc086, #eff188);
+    cursor:pointer;
 
 }
 
@@ -127,11 +133,13 @@ input {
     background: #007714;
     background: linear-gradient(to top, #007714, #07da00);
     margin: 20px;
+    cursor:pointer;
 }
 
 #sacar_grana_btn:hover{
     color: #FFFFFF !important;
     background: #4f794a;
-    background: linear-gradient(to top, #4f794a, #88f188)
+    background: linear-gradient(to top, #4f794a, #88f188);
+    cursor:pointer;
 
 }
