@@ -106,14 +106,12 @@ var mudarNomeBotao = document.getElementById('mudar_nome_btn');
 var nomeNovoInput = document.getElementById('nome_input');
 var sacarGranaBotao = document.getElementById('sacar_grana_btn');
 var addressBotao = document.getElementById('address_btn');
-var account = await conectar();
 
 async function conectar(){
     if(ethereum){
         try{
             let accounts = await ethereum.request({method:'eth_requestAccounts'});
             let account = accounts[0];
-            alert ("Conectado!");
             return account;
         } catch(err){
             alert('Error');
@@ -123,6 +121,7 @@ async function conectar(){
         alert('Por favor, instale a carteira');
     }
 }
+
 
 async function lerNome(){
     if(ethereum){
@@ -154,8 +153,10 @@ async function lerPreco(){
 async function lerDono(){
     if(ethereum){
         try {
+            let account = await conectar();
             let chamada = await contrato.methods.lerDono().call();
-            return chamada;
+            let retorno = {chamada, account};
+            return retorno;
         }
         catch(err)
         {
@@ -166,6 +167,7 @@ async function lerDono(){
 }
 async function mudarPreco(_precoNovoInput){
     try {
+        var account = await conectar();
         let operacao = await contrato.methods.mudarPreco(_precoNovoInput).send({from:account});
         alert("Preço alterado!");
         return operacao;
@@ -178,6 +180,7 @@ async function mudarPreco(_precoNovoInput){
 }
 async function mudarNome(_novoNome, _precoAPagar){
     try {
+        var account = await conectar();
         let operacao = await contrato.methods.mudarNome(_novoNome).send({from:account, value: _precoAPagar});
         alert("Nome alterado!");
         return operacao;
@@ -191,6 +194,7 @@ async function mudarNome(_novoNome, _precoAPagar){
 
 async function sacarGrana(){
     try {
+        var account = await conectar();
         let operacao = await contrato.methods.sacarGrana().send({from:account});
         alert("Grana sacada!");
         return operacao;
@@ -215,6 +219,7 @@ function getAddress(){
 conectarBotao.addEventListener('click', ()=>{
     conectar().then((response)=>{
         infosParagrafo.innerHTML = `Carteira conectada: ${response}`
+        alert ("Conectado!");
     }).catch((err)=>{
         console.log(err);
     });
@@ -223,7 +228,7 @@ conectarBotao.addEventListener('click', ()=>{
 lerNomeBotao.addEventListener('click', ()=>{
     lerNome().then((response)=> {
         infosParagrafo.innerHTML = `O nome do contrato é: ${response}`
-    
+
     }).catch((err)=>{
         console.log(err);
     });
@@ -236,9 +241,9 @@ lerPrecoBotao.addEventListener('click', ()=>{
     });
 });
 lerDonoBotao.addEventListener('click', ()=>{
-    lerDono().then((response)=>{
-        let accountString = account.toString().toLowerCase();
-        let responseString = response.toString().toLowerCase();
+    lerDono().then((response)  => {
+        let accountString = response.account.toString().toLowerCase();
+        let responseString = response.chamada.toString().toLowerCase();
         if(accountString === responseString)  
         {
             infosParagrafo.innerHTML = `Eu sou o dono!`;
@@ -247,7 +252,7 @@ lerDonoBotao.addEventListener('click', ()=>{
         {
             infosParagrafo.innerHTML = `O dono do contrato é: <em>${responseString}</em>`;
         }
-    
+
     }).catch((err)=>{
         console.log(err);
     });
